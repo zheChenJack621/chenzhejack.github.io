@@ -1,0 +1,101 @@
+---
+title: "P8105-HW3-zc2556"
+author: "Zhe Chen"
+date: "2020/10/10"
+output: github_document
+---
+
+# NOAA
+
+## Preparation
+
+```{r, warning=FALSE}
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(
+  theme_minimal()+
+  theme(legend.position = "bottom")
+)
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continous.fill = "viridis"
+)
+
+scale_color_discrete = scale_colour_viridis_d()
+scale_fill_discrete = scale_fill_viridis_d
+
+```
+
+
+## Clean the Data
+
+```{r, warning=FALSE}
+#import clean
+data("ny_noaa")
+
+noaa = ny_noaa %>%
+  janitor::clean_names()
+
+noaa = 
+  noaa %>% 
+  separate(date, into = c("year", "month", "day"), convert = TRUE) %>% 
+  select(
+    -id
+  ) %>%
+  filter(
+    year >=1990 & year <= 2010
+  )#keep interested time interval
+```
+
+```{r}
+#convert units
+noaa = 
+  noaa %>%  
+  mutate(
+      tmax = as.numeric(tmax),
+      tmin = as.numeric(tmin),
+      snow_mm = snow,
+      snow = round(snow_mm * 0.03937 * 4) / 4) %>%
+  select(
+    -snow
+  )
+```
+
+
+This dataset documented over temperature from various weather stations. 
+
+## Plot
+
+```{r}
+noaa %>%
+  plot_ly(
+      x = ~year, y = ~snow_mm, type = "scatter", mode = "markers",
+      color = ~month, alpha = 0.5)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+

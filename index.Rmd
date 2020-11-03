@@ -1,5 +1,5 @@
 ---
-title: "My awesome website"
+title: "Zhe Chen's Website"
 output: 
   html_document:
     toc: true
@@ -7,6 +7,9 @@ output:
     theme: cerulean
 ---
 
-# This is Jeff's awesome website
+# Welcome!
 
-![](https://media.giphy.com/media/drXGoW1iudhKw/giphy.gif)
+This is my first personal web page, welcome and take a break. My name is Zhe Chen, who loves biology and likes collecting interesting memes.
+
+<img src="olZLa7i.jpg" style="width:75%">
+

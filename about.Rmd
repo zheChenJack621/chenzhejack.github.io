@@ -1,0 +1,78 @@
+---
+title: "About"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+---
+
+# My Resume
+
+## Education Background
+
+Columbia University, Mailman School of Public Health, New York, NY
+Master of Science, Biostatistics, Theory and Method Track
+
+University of California, Santa Barbara (UCSB), Santa Barbara, CA
+Bachelor of Arts, Biology & Statistics and Data Science (Double Major)
+
+
+## Research Experience
+
+Denise Montell’s Lab
+
+Independent Researcher, Advisor: Prof. Denise Montell
+
+Project Title: Apoptosis Sensitivity of Hela Cells with Knocked Down G3BP1/G3BP2 
+
+* Successfully received grant to participate in CCS Summer Fellowship. 
+* Creatively designed the project via analyzing results from previous experiments.
+* Studied the effects of G3BP1/G3BP2 double knockdown on survival rate under treatments during different acting time. 
+* Efficiently analyzed 200 cells per image, 90 images for 3 experiments in total by developing a novel tool with ImageJ.
+* Concluded that G3BP1/G3BP2 double knockdown did not change apoptotic rate under different reagents.
+* Prepared and presented a poster in a college-held poster session which opened to the public.
+
+
+## Internship Experience
+
+Beijing Cancer Hospital, Cancer Epidemiology Lab
+
+Researching Intern, Advisor: Prof Wenqing Li
+
+* Efficiently processed quality control for a 300g dataset for Genome-wide Association Study on a Linux server. 
+* Successfully implemented imputation of the dataset with more than 300,000 SNPs on 22 chromosomes.
+* Interpreted and associated the result of both the metabolomics study and the proteomics study. 
+* Drafted and published (in review), as the first author, a review about applying random survival forest, a machine learning algorithm, in survival analysis.
+* Analyzed data in metabolomics and proteomics.
+
+
+## Honor and Publications
+
+UCSB RAC-CON Poster Session                                                  
+
+* Apoptosis Sensitivity of Hela Cells with Knocked Down G3BP1/G3BP2
+
+CCS Summer Research Fellowship
+
+Dean’s Honor (Fall 2016, Winter 2016, Spring 2020)
+
+Chinese Journal of Preventive Medicine 
+
+* Random Survival Forest: Applying Machine Learning Algorithm in Survival Analysis of Biomedical Data (in review, first author)
+
+Columbia University Data Science Institute Scholar Program
+
+
+## Skills
+
+Computational Skills: Microsoft Office, ilastik, ImageJ, Python, R, C++, SAS, Plink, Linux, Impute2
+
+Data Analytic Skills: linear regression, survival analysis, experimental
+design, statistical testing, time series, machine learning
+
+Languages: English (Proficient), Mandarin (Native), Japanese (Beginner)
+
+
+
+

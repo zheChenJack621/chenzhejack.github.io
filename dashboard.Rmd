@@ -46,11 +46,8 @@ noaa =
   )
 ```
 
-
 Column {data-width=650}
 -----------------------------------------------------------------------
-
-
 
 ### Scatter Plot to Show the General Snowfall from 2000 to 2010
 
@@ -58,8 +55,11 @@ Column {data-width=650}
 noaa %>%
   group_by(year,month)%>%
   summarize(Snowfall = mean(snow_mm))%>%
+  mutate(
+    text_label = str_c("Month: ", month)
+  )%>%
   plot_ly(
-      x = ~year, y = ~Snowfall, type = "scatter", color = ~month, alpha = 0.5)
+      x = ~year, y = ~Snowfall, type = "scatter", color = ~month, alpha = 0.5, text = ~text_label)
 ```
 
 Column {data-width=350}
@@ -71,9 +71,12 @@ Column {data-width=350}
 noaa%>%
   group_by(year)%>%
   summarize(Snowfall = max(snow_mm))%>%
+  mutate(
+    text_label = str_c("Extreme Snowfall(mm): ", Snowfall)
+  )%>%
   plot_ly(
       x = ~year, y = ~Snowfall, type = "scatter", 
-      mode = "markers+lines",
+      mode = "markers+lines", text = ~text_label,
       color = ~Snowfall, alpha = 0.5)
 ```
 
@@ -83,8 +86,11 @@ noaa%>%
 noaa%>%
   group_by(year)%>%
   summarize(Precipitation = mean(prcp))%>%
+  mutate(
+    text_label = str_c("Average Precipitations(mm): ", Precipitation)
+  )%>%
   plot_ly(
-      x = ~year, y = ~Precipitation, type = "bar", 
+      x = ~year, y = ~Precipitation, type = "bar", text = ~text_label, 
       color = ~Precipitation, alpha = 0.5)
 ```
 

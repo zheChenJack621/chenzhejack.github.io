@@ -5,10 +5,13 @@ navbar:
   right:
     - text: "About"
       href: about.html
+    - text: "Dashboard"
+      href: dashboard.html
     - icon: fa-envelope fa-lg
       href: mailto:<zhe.chen@columbia.edu>
     - icon: fa-github fa-lg
       href: http://github.com/zheChenJack621/
-output:
+    
+  output:
   html_document:
     theme: cerulean

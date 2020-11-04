@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Dashboard</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mailto:&lt;zhe.chen@columbia.edu&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/zheChenJack621/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Dashboard</h1>
+
+</div>
+
+
+<pre class="r"><code>#import clean
+data(&quot;ny_noaa&quot;)
+
+noaa = ny_noaa %&gt;%
+  janitor::clean_names()
+
+noaa = 
+  noaa %&gt;% 
+  separate(date, into = c(&quot;year&quot;, &quot;month&quot;, &quot;day&quot;), convert = TRUE) %&gt;% 
+  select(
+    -id, -day, -tmax
+  ) %&gt;%
+  filter(
+    year &gt;=2000 &amp; year &lt;= 2010
+  ) %&gt;% #keep interested time interval
+  drop_na(c(snow,prcp,snwd,tmin))</code></pre>
+<pre class="r"><code>#convert units
+noaa = 
+  noaa %&gt;%  
+  mutate(
+      tmin = as.numeric(tmin),
+      snow_mm = snow,
+      snow = round(snow_mm * 0.03937 * 4) / 4) %&gt;%
+  select(
+    -snow
+  )</code></pre>
+<div id="column" class="section level2" data-width="650">
+<h2>Column</h2>
+<div id="scatter-plot-to-show-the-general-snowfall-from-2000-to-2010" class="section level3">
+<h3>Scatter Plot to Show the General Snowfall from 2000 to 2010</h3>
+<pre class="r"><code>noaa %&gt;%
+  group_by(year,month)%&gt;%
+  summarize(Snowfall = mean(snow_mm))%&gt;%
+  plot_ly(
+      x = ~year, y = ~Snowfall, type = &quot;scatter&quot;, color = ~month, alpha = 0.5)</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;year&#39; (override with `.groups` argument)</code></pre>
+<pre><code>## No scatter mode specifed:
+##   Setting the mode to markers
+##   Read more about this attribute -&gt; https://plot.ly/r/reference/#scatter-mode</code></pre>
+<pre><code>## Warning: `arrange_()` is deprecated as of dplyr 0.7.0.
+## Please use `arrange()` instead.
+## See vignette(&#39;programming&#39;) for more help
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
+<div id="htmlwidget-644f73cc4f519c75904c" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-644f73cc4f519c75904c">{"x":{"visdat":{"39042b0c2c7c":["function () ","plotlyVisDat"]},"cur_data":"39042b0c2c7c","attrs":{"39042b0c2c7c":{"x":{},"y":{},"color":{},"alpha":0.5,"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"year"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Snowfall"},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2001,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2002,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2003,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2004,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2005,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2006,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2007,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2008,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010,2010],"y":[17.5375571521881,14.8499273255814,4.38905085843861,5.11715749039693,0,0,0,0,0,0.147145379635079,5.40273363000636,23.41459197787,12.4211876832845,14.1999198717949,28.0342151675485,0.310891089108911,0,0.0104002521273243,0,0,0,0.401641836424445,0.433386327503975,9.30006697923644,15.1456110154905,8.66344294003868,9.17594891805605,1.39204732172198,0.380530973451327,0,0,0,0,0.153638814016173,9.08709794000723,24.2349042709867,23.7892280071813,20.176184690158,7.19928952042629,5.12526315789474,0,0,0,0,0,0.184940138626339,3.79618979151689,21.3965322276668,23.6636722960834,9.94665664913599,10.6444444444444,1.08677004289014,0.0238305383936452,0,0,0,0,0,1.01696483652067,9.44475920679887,23.9019466474405,15.7128164556962,16.3113975576662,1.22097498396408,0.00240384615384615,-0.0040841972981464,0,0,0,0.875745214935676,5.1309239686328,15.8267223382046,10.1755829903978,15.6465014577259,5.70655080213904,0.704068658614113,0,0,0,0.00321853878339234,0,0.900603366147984,0.794863459037711,3.83647175421209,11.5617747440273,30.2158469945355,11.5063829787234,6.92878338278932,0,0,0,0,0,0.000961230374879846,2.04515050167224,22.4317412561113,11.2524127691166,19.3417004048583,11.2122082585278,0.163505559189012,0.00156690692572861,0,0,0.00792141951837769,0,1.8816199376947,6.37612456747405,22.2246302029584,24.7704210147535,8.87618685909609,2.13495720868993,0.948292371528886,0,0,0,0,0,0.436581709145427,0.231345613487356,15.6664338106881,16.263530244075,27.0818112633181,1.09400630914827,0.480848369737259,0.174500768049155,0,0,0,0,0.101586333129957,0.901013513513514,17.6754675467547],"type":"scatter","mode":"markers","marker":{"colorbar":{"title":"month","ticklen":2},"cmin":1,"cmax":12,"colorscale":[["0","rgba(68,1,84,0.5)"],["0.0416666666666667","rgba(70,19,97,0.5)"],["0.0833333333333333","rgba(72,32,111,0.5)"],["0.125","rgba(71,45,122,0.5)"],["0.166666666666667","rgba(68,58,128,0.5)"],["0.208333333333333","rgba(64,70,135,0.5)"],["0.25","rgba(60,82,138,0.5)"],["0.291666666666667","rgba(56,93,140,0.5)"],["0.333333333333333","rgba(49,104,142,0.5)"],["0.375","rgba(46,114,142,0.5)"],["0.416666666666667","rgba(42,123,142,0.5)"],["0.458333333333333","rgba(38,133,141,0.5)"],["0.5","rgba(37,144,140,0.5)"],["0.541666666666667","rgba(33,154,138,0.5)"],["0.583333333333333","rgba(39,164,133,0.5)"],["0.625","rgba(47,174,127,0.5)"],["0.666666666666667","rgba(53,183,121,0.5)"],["0.708333333333333","rgba(79,191,110,0.5)"],["0.75","rgba(98,199,98,0.5)"],["0.791666666666667","rgba(119,207,85,0.5)"],["0.833333333333333","rgba(147,214,70,0.5)"],["0.875","rgba(172,220,52,0.5)"],["0.916666666666667","rgba(199,225,42,0.5)"],["0.958333333333333","rgba(226,228,40,0.5)"],["1","rgba(253,231,37,0.5)"]],"showscale":false,"color":[1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12],"line":{"colorbar":{"title":"","ticklen":2},"cmin":1,"cmax":12,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12]}},"xaxis":"x","yaxis":"y","frame":null},{"x":[2000,2010],"y":[-0.0040841972981464,30.2158469945355],"type":"scatter","mode":"markers","opacity":0,"hoverinfo":"none","showlegend":false,"marker":{"colorbar":{"title":"month","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"cmin":1,"cmax":12,"colorscale":[["0","rgba(68,1,84,0.5)"],["0.0416666666666667","rgba(70,19,97,0.5)"],["0.0833333333333333","rgba(72,32,111,0.5)"],["0.125","rgba(71,45,122,0.5)"],["0.166666666666667","rgba(68,58,128,0.5)"],["0.208333333333333","rgba(64,70,135,0.5)"],["0.25","rgba(60,82,138,0.5)"],["0.291666666666667","rgba(56,93,140,0.5)"],["0.333333333333333","rgba(49,104,142,0.5)"],["0.375","rgba(46,114,142,0.5)"],["0.416666666666667","rgba(42,123,142,0.5)"],["0.458333333333333","rgba(38,133,141,0.5)"],["0.5","rgba(37,144,140,0.5)"],["0.541666666666667","rgba(33,154,138,0.5)"],["0.583333333333333","rgba(39,164,133,0.5)"],["0.625","rgba(47,174,127,0.5)"],["0.666666666666667","rgba(53,183,121,0.5)"],["0.708333333333333","rgba(79,191,110,0.5)"],["0.75","rgba(98,199,98,0.5)"],["0.791666666666667","rgba(119,207,85,0.5)"],["0.833333333333333","rgba(147,214,70,0.5)"],["0.875","rgba(172,220,52,0.5)"],["0.916666666666667","rgba(199,225,42,0.5)"],["0.958333333333333","rgba(226,228,40,0.5)"],["1","rgba(253,231,37,0.5)"]],"showscale":true,"color":[1,12],"line":{"color":"rgba(255,127,14,1)"}},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="column-1" class="section level2" data-width="350">
+<h2>Column</h2>
+<div id="line-plot-to-show-the-treand-of-the-extreme-snowfall-from-2000-to-2010" class="section level3">
+<h3>Line Plot to Show the Treand of the Extreme Snowfall from 2000 to 2010</h3>
+<pre class="r"><code>noaa%&gt;%
+  group_by(year)%&gt;%
+  summarize(Snowfall = max(snow_mm))%&gt;%
+  plot_ly(
+      x = ~year, y = ~Snowfall, type = &quot;scatter&quot;, 
+      mode = &quot;markers+lines&quot;,
+      color = ~Snowfall, alpha = 0.5)</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## Warning: line.color doesn&#39;t (yet) support data arrays
+
+## Warning: line.color doesn&#39;t (yet) support data arrays</code></pre>
+<div id="htmlwidget-79ace7a0d9b007e97580" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-79ace7a0d9b007e97580">{"x":{"visdat":{"390450ea7d5":["function () ","plotlyVisDat"]},"cur_data":"390450ea7d5","attrs":{"390450ea7d5":{"x":{},"y":{},"mode":"markers+lines","color":{},"alpha":0.5,"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"year"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Snowfall"},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010],"y":[734,711,843,610,521,508,612,762,508,775,892],"mode":"markers+lines","type":"scatter","marker":{"colorbar":{"title":"Snowfall","ticklen":2},"cmin":508,"cmax":892,"colorscale":[["0","rgba(68,1,84,0.5)"],["0.0416666666666667","rgba(70,19,97,0.5)"],["0.0833333333333333","rgba(72,32,111,0.5)"],["0.125","rgba(71,45,122,0.5)"],["0.166666666666667","rgba(68,58,128,0.5)"],["0.208333333333333","rgba(64,70,135,0.5)"],["0.25","rgba(60,82,138,0.5)"],["0.291666666666667","rgba(56,93,140,0.5)"],["0.333333333333333","rgba(49,104,142,0.5)"],["0.375","rgba(46,114,142,0.5)"],["0.416666666666667","rgba(42,123,142,0.5)"],["0.458333333333333","rgba(38,133,141,0.5)"],["0.5","rgba(37,144,140,0.5)"],["0.541666666666667","rgba(33,154,138,0.5)"],["0.583333333333333","rgba(39,164,133,0.5)"],["0.625","rgba(47,174,127,0.5)"],["0.666666666666667","rgba(53,183,121,0.5)"],["0.708333333333333","rgba(79,191,110,0.5)"],["0.75","rgba(98,199,98,0.5)"],["0.791666666666667","rgba(119,207,85,0.5)"],["0.833333333333333","rgba(147,214,70,0.5)"],["0.875","rgba(172,220,52,0.5)"],["0.916666666666667","rgba(199,225,42,0.5)"],["0.958333333333333","rgba(226,228,40,0.5)"],["1","rgba(253,231,37,0.5)"]],"showscale":false,"color":[734,711,843,610,521,508,612,762,508,775,892],"line":{"colorbar":{"title":"","ticklen":2},"cmin":508,"cmax":892,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[734,711,843,610,521,508,612,762,508,775,892]}},"xaxis":"x","yaxis":"y","frame":null},{"x":[2000,2010],"y":[508,892],"type":"scatter","mode":"markers","opacity":0,"hoverinfo":"none","showlegend":false,"marker":{"colorbar":{"title":"Snowfall","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"cmin":508,"cmax":892,"colorscale":[["0","rgba(68,1,84,0.5)"],["0.0416666666666667","rgba(70,19,97,0.5)"],["0.0833333333333333","rgba(72,32,111,0.5)"],["0.125","rgba(71,45,122,0.5)"],["0.166666666666667","rgba(68,58,128,0.5)"],["0.208333333333333","rgba(64,70,135,0.5)"],["0.25","rgba(60,82,138,0.5)"],["0.291666666666667","rgba(56,93,140,0.5)"],["0.333333333333333","rgba(49,104,142,0.5)"],["0.375","rgba(46,114,142,0.5)"],["0.416666666666667","rgba(42,123,142,0.5)"],["0.458333333333333","rgba(38,133,141,0.5)"],["0.5","rgba(37,144,140,0.5)"],["0.541666666666667","rgba(33,154,138,0.5)"],["0.583333333333333","rgba(39,164,133,0.5)"],["0.625","rgba(47,174,127,0.5)"],["0.666666666666667","rgba(53,183,121,0.5)"],["0.708333333333333","rgba(79,191,110,0.5)"],["0.75","rgba(98,199,98,0.5)"],["0.791666666666667","rgba(119,207,85,0.5)"],["0.833333333333333","rgba(147,214,70,0.5)"],["0.875","rgba(172,220,52,0.5)"],["0.916666666666667","rgba(199,225,42,0.5)"],["0.958333333333333","rgba(226,228,40,0.5)"],["1","rgba(253,231,37,0.5)"]],"showscale":true,"color":[508,892],"line":{"color":"rgba(255,127,14,1)"}},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="bar-plot-to-show-the-annually-average-precipitations-from-2000-to-2010" class="section level3">
+<h3>Bar Plot to Show the Annually Average Precipitations from 2000 to 2010</h3>
+<pre class="r"><code>noaa%&gt;%
+  group_by(year)%&gt;%
+  summarize(Precipitation = mean(prcp))%&gt;%
+  plot_ly(
+      x = ~year, y = ~Precipitation, type = &quot;bar&quot;, 
+      color = ~Precipitation, alpha = 0.5)</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## Warning: textfont.color doesn&#39;t (yet) support data arrays
+
+## Warning: textfont.color doesn&#39;t (yet) support data arrays</code></pre>
+<div id="htmlwidget-e63a4620dca067d334d6" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e63a4620dca067d334d6">{"x":{"visdat":{"39041ff089c":["function () ","plotlyVisDat"]},"cur_data":"39041ff089c","attrs":{"39041ff089c":{"x":{},"y":{},"color":{},"alpha":0.5,"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"year"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Precipitation"},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010],"y":[32.2164356383951,24.0838912419729,31.6196285154417,35.069673299504,33.0178415206384,33.0093042291951,34.7531766286098,31.6761782801147,33.9800168161435,30.70664340357,31.3696734314315],"type":"bar","marker":{"colorbar":{"title":"Precipitation","ticklen":2},"cmin":24.0838912419729,"cmax":35.069673299504,"colorscale":[["0","rgba(68,1,84,0.5)"],["0.0416666666666666","rgba(70,19,97,0.5)"],["0.0833333333333332","rgba(72,32,111,0.5)"],["0.125","rgba(71,45,122,0.5)"],["0.166666666666667","rgba(68,58,128,0.5)"],["0.208333333333333","rgba(64,70,135,0.5)"],["0.25","rgba(60,82,138,0.5)"],["0.291666666666667","rgba(56,93,140,0.5)"],["0.333333333333333","rgba(49,104,142,0.5)"],["0.375","rgba(46,114,142,0.5)"],["0.416666666666667","rgba(42,123,142,0.5)"],["0.458333333333333","rgba(38,133,141,0.5)"],["0.5","rgba(37,144,140,0.5)"],["0.541666666666667","rgba(33,154,138,0.5)"],["0.583333333333333","rgba(39,164,133,0.5)"],["0.625","rgba(47,174,127,0.5)"],["0.666666666666667","rgba(53,183,121,0.5)"],["0.708333333333333","rgba(79,191,110,0.5)"],["0.75","rgba(98,199,98,0.5)"],["0.791666666666667","rgba(119,207,85,0.5)"],["0.833333333333334","rgba(147,214,70,0.5)"],["0.875","rgba(172,220,52,0.5)"],["0.916666666666667","rgba(199,225,42,0.5)"],["0.958333333333333","rgba(226,228,40,0.5)"],["1","rgba(253,231,37,0.5)"]],"showscale":false,"color":[32.2164356383951,24.0838912419729,31.6196285154417,35.069673299504,33.0178415206384,33.0093042291951,34.7531766286098,31.6761782801147,33.9800168161435,30.70664340357,31.3696734314315],"line":{"colorbar":{"title":"","ticklen":2},"cmin":24.0838912419729,"cmax":35.069673299504,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666666","rgba(70,19,97,1)"],["0.0833333333333332","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333334","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[32.2164356383951,24.0838912419729,31.6196285154417,35.069673299504,33.0178415206384,33.0093042291951,34.7531766286098,31.6761782801147,33.9800168161435,30.70664340357,31.3696734314315]}},"xaxis":"x","yaxis":"y","frame":null},{"x":[2000,2010],"y":[24.0838912419729,35.069673299504],"type":"scatter","mode":"markers","opacity":0,"hoverinfo":"none","showlegend":false,"marker":{"colorbar":{"title":"Precipitation","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"cmin":24.0838912419729,"cmax":35.069673299504,"colorscale":[["0","rgba(68,1,84,0.5)"],["0.0416666666666666","rgba(70,19,97,0.5)"],["0.0833333333333332","rgba(72,32,111,0.5)"],["0.125","rgba(71,45,122,0.5)"],["0.166666666666667","rgba(68,58,128,0.5)"],["0.208333333333333","rgba(64,70,135,0.5)"],["0.25","rgba(60,82,138,0.5)"],["0.291666666666667","rgba(56,93,140,0.5)"],["0.333333333333333","rgba(49,104,142,0.5)"],["0.375","rgba(46,114,142,0.5)"],["0.416666666666667","rgba(42,123,142,0.5)"],["0.458333333333333","rgba(38,133,141,0.5)"],["0.5","rgba(37,144,140,0.5)"],["0.541666666666667","rgba(33,154,138,0.5)"],["0.583333333333333","rgba(39,164,133,0.5)"],["0.625","rgba(47,174,127,0.5)"],["0.666666666666667","rgba(53,183,121,0.5)"],["0.708333333333333","rgba(79,191,110,0.5)"],["0.75","rgba(98,199,98,0.5)"],["0.791666666666667","rgba(119,207,85,0.5)"],["0.833333333333334","rgba(147,214,70,0.5)"],["0.875","rgba(172,220,52,0.5)"],["0.916666666666667","rgba(199,225,42,0.5)"],["0.958333333333333","rgba(226,228,40,0.5)"],["1","rgba(253,231,37,0.5)"]],"showscale":true,"color":[24.0838912419729,35.069673299504],"line":{"color":"rgba(255,127,14,1)"}},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

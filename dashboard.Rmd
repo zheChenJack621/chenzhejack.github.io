@@ -1,0 +1,89 @@
+---
+title: "Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source: embed
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+```
+
+```{r, warning=FALSE}
+#import clean
+data("ny_noaa")
+
+noaa = ny_noaa %>%
+  janitor::clean_names()
+
+noaa = 
+  noaa %>% 
+  separate(date, into = c("year", "month", "day"), convert = TRUE) %>% 
+  select(
+    -id, -day, -tmax
+  ) %>%
+  filter(
+    year >=2000 & year <= 2010
+  ) %>% #keep interested time interval
+  drop_na(c(snow,prcp,snwd,tmin))
+```
+
+```{r}
+#convert units
+noaa = 
+  noaa %>%  
+  mutate(
+      tmin = as.numeric(tmin),
+      snow_mm = snow,
+      snow = round(snow_mm * 0.03937 * 4) / 4) %>%
+  select(
+    -snow
+  )
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+
+
+### Scatter Plot to Show the General Snowfall from 2000 to 2010
+
+```{r}
+noaa %>%
+  group_by(year,month)%>%
+  summarize(Snowfall = mean(snow_mm))%>%
+  plot_ly(
+      x = ~year, y = ~Snowfall, type = "scatter", color = ~month, alpha = 0.5)
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Line Plot to Show the Treand of the Extreme Snowfall from 2000 to 2010
+
+```{r}
+noaa%>%
+  group_by(year)%>%
+  summarize(Snowfall = max(snow_mm))%>%
+  plot_ly(
+      x = ~year, y = ~Snowfall, type = "scatter", 
+      mode = "markers+lines",
+      color = ~Snowfall, alpha = 0.5)
+```
+
+### Bar Plot to Show the Annually Average Precipitations from 2000 to 2010
+
+```{r}
+noaa%>%
+  group_by(year)%>%
+  summarize(Precipitation = mean(prcp))%>%
+  plot_ly(
+      x = ~year, y = ~Precipitation, type = "bar", 
+      color = ~Precipitation, alpha = 0.5)
+```
+
